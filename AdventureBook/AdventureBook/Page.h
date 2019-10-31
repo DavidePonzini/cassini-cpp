@@ -4,7 +4,10 @@
 #include <string>
 #include <vector>
 
+
 using namespace std;
+
+class Action;
 
 
 class Page
@@ -17,13 +20,14 @@ public:
 
 private:
 	string Text;
-	vector<Page*> Actions;
+	vector<Action*> Actions;
 
 public:
 	void ShowText();
-	Page* SelectAction();
+	void SelectAction();
 
 private:
 	void ReadText(string filename);
+	void ParseText();
 };
 

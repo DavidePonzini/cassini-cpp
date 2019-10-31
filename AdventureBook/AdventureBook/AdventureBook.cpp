@@ -1,4 +1,6 @@
 #include "Page.h"
+#include "Constants.h"
+
 
 #include <iostream>
 #include <string>
@@ -16,10 +18,16 @@ int main(int argc, char* argv[])
 		exit(1);
 	}
 
-	string dir = argv[1];
+	//PAGES_DIR = argv[1];
 	string firstPageName = argv[2];
 
-	Page* firstPage = new Page(dir + '/' + firstPageName);
+	try {
+		Page* firstPage = new Page(firstPageName);
+
+		firstPage->ShowText();
+	}
+	catch (Error e) {
+		cerr << (int) e << endl;
+	}
 	
-	firstPage->ShowText();
 }

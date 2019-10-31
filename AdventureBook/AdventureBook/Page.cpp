@@ -1,9 +1,11 @@
 #include "Page.h"
 #include "Constants.h"
+#include "Action.h"
 
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <vector>
 
 
 
@@ -11,7 +13,7 @@ Page::Page(string filename)
 {
 	Id = -1;
 
-	ReadText(filename);
+	ReadText(PAGES_DIR + '/' + filename);
 }
 
 void Page::ShowText()
@@ -19,19 +21,18 @@ void Page::ShowText()
 	system("cls");
 
 	cout << "Pagina " << Id << endl << endl;
-	
 	cout << Text << endl;
 
-	Page* newPage = SelectAction();
+	SelectAction();
 }
 
-Page* Page::SelectAction()
+void Page::SelectAction()
 {
 	if (Actions.size() == 0)
 	{
 		cout << endl << END_MESSAGE << endl;
 
-		return nullptr;
+		return;
 	}
 
 	int action = -1;
@@ -39,22 +40,43 @@ Page* Page::SelectAction()
 	do
 	{
 		cout << "Scegli un'azione: ";
+
+		for (int i = 0; i < Actions.size(); i++) {
+			cout << "\t(" << i << ") " << Actions[i]->Text << endl;
+		}
+		
 		cin >> action;
 	} while (action < 0 || action >= Actions.size());
 	
-	return Actions[action];
+	Actions[action]->Execute();
 }
 
 void Page::ReadText(string filename)
 {
-	ifstream inFile(filename);
+	ifstream file(filename);
 
-	if (!inFile)
-		throw ERR_FILE_READ;
+	if (!file) 
+		throw Error::ERR_FILE_READ;
 
-	stringstream ss;
-	ss << inFile.rdbuf();
-	Text = ss.str();
+	string buf;
 
-	inFile.close();
+	// get text until first tag
+	while (getline(file, buf, '['))
+	{
+		Text += buf;
+
+
+		string tagText, tagDest;
+		getline(file, tagText, '|');
+		getline(file, tagDest, ']');
+
+		Actions.push_back(new Action(new Page(tagDest), tagText));
+	}
+
+	file.close();
+}
+
+void Page::ParseText()
+{
+
 }

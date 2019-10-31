@@ -4,7 +4,13 @@
 
 using namespace std;
 
-const string ERR_INDEX_OUT_OF_BOUNDS = "Index of bounds";
-const string ERR_FILE_READ = "Cannot read file";
 
+const string PAGES_DIR = "../../pages";
 const string END_MESSAGE = "THE END";
+
+
+enum class Error {
+	ERR_INDEX_OUT_OF_BOUNDS,
+	ERR_FILE_READ
+};
+

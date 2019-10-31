@@ -1,0 +1,4 @@
+questa e` la seconda pagina
+
+vuoi andare a destra[Vai a destra|3.txt] o
+preferisci andare a sinistra[Vai a sinistra|3.txt]?
