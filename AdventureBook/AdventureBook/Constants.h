@@ -5,7 +5,7 @@
 using namespace std;
 
 
-const string PAGES_DIR = "../../pages";
+static string PAGES_DIR = "E:/Cassini/cpp-cassini/AdventureBook/pages";
 const string END_MESSAGE = "THE END";
 
 

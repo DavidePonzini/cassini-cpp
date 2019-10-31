@@ -13,6 +13,8 @@ Page::Page(string filename)
 {
 	Id = -1;
 
+	cerr << "[Initialization] " << filename << endl;
+
 	ReadText(PAGES_DIR + '/' + filename);
 }
 
@@ -39,7 +41,8 @@ void Page::SelectAction()
 	
 	do
 	{
-		cout << "Scegli un'azione: ";
+		cout << endl << "====================" << endl;
+		cout << "Scegli un'azione:" << endl;
 
 		for (int i = 0; i < Actions.size(); i++) {
 			cout << "\t(" << i << ") " << Actions[i]->Text << endl;
@@ -70,7 +73,8 @@ void Page::ReadText(string filename)
 		getline(file, tagText, '|');
 		getline(file, tagDest, ']');
 
-		Actions.push_back(new Action(new Page(tagDest), tagText));
+		if (tagText != "")
+			Actions.push_back(new Action(new Page(tagDest), tagText));
 	}
 
 	file.close();
