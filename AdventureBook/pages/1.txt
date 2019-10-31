@@ -1,0 +1,2 @@
+Se vuoi entrare nella grotta, vai a pagina [2.txt].
+Se preferisci continuare sul sentiero, vai a pagina [3.txt].
