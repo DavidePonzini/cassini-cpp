@@ -1,0 +1,5 @@
+Continui a guardarti attorno, ma non trovi nulla di interessante.
+
+Se vuoi continuare a guardarti attorno, vai a pagina [Continua a guardare|guarda.txt];
+se preferisci metterti a dormire, vai a pagina [Dormi|dormi.txt];
+se scegli di uscire e continuare sul sentiero, vai a pagina [Esci|fine.txt].

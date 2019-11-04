@@ -7,9 +7,4 @@ Action::Action(Page* destination, string text)
 	Text = text;
 }
 
-void Action::Execute()
-{
-	Destination->ShowText();
-}
-
 

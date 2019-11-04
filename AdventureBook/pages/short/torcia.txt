@@ -1,0 +1,6 @@
+Accendi una torcia, illuminando quella che speravi fosse un lungo passaggio sotterraneo.
+
+Sfortunatamente per te, la grotta e` molto piu` corta del previsto e riesci gia` ad intravedere la fine.
+
+Se vuoi esplorare la grotta fino in fondo, vai a pagina [Esplora la grotta|esplora.txt];
+se scegli di tornare indietro e continuare per la tua strada, vai a pagina [Torna indietro e continua il sentiero|fine.txt].

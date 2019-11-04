@@ -1,3 +1,0 @@
-Sei entrato nella grotta ma non trovi nulla.
-
-Puoi solo uscire[Esci|fine.txt]?

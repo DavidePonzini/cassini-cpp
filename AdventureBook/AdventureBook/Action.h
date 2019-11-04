@@ -6,21 +6,15 @@
 
 using namespace std;
 
+
 class Page;
 
 
-class Action
+struct Action
 {
-public:
 	Action(Page* destination, string text);
 
-private:
 	Page* Destination;
-
-public:
 	string Text;
-
-public:
-	void Execute();
 };
 

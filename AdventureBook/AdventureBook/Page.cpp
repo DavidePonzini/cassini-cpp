@@ -1,6 +1,7 @@
 #include "Page.h"
-#include "Constants.h"
+#include "Error.h"
 #include "Action.h"
+#include "Book.h"
 
 #include <fstream>
 #include <sstream>
@@ -9,53 +10,61 @@
 
 
 
-Page::Page(string filename)
+Page::Page(string filename, int id, Book* book)
 {
-	Id = -1;
-
-	cerr << "[Initialization] " << filename << endl;
-
-	ReadText(PAGES_DIR + '/' + filename);
+	Id = id;
+	MyBook = book;
+	Filename = filename;
+	
 }
 
 void Page::ShowText()
 {
-	system("cls");
+	ReadText(Filename);
 
-	cout << "Pagina " << Id << endl << endl;
+	for (int i = 0; i < (PAGE_LEN - 8)/2; i++)
+		cout << ' ';
+	cout << "Pagina " << Id << endl;
+	
+	for (int i = 0; i < PAGE_LEN; i++)
+		cout << '=';
+	cout << endl;
+
 	cout << Text << endl;
 
-	SelectAction();
+	for (int i = 0; i < PAGE_LEN; i++)
+		cout << '=';
+	cout << endl;
+
 }
 
-void Page::SelectAction()
+Page* Page::GetNextPage()
 {
 	if (Actions.size() == 0)
-	{
-		cout << endl << END_MESSAGE << endl;
+		return nullptr;
 
-		return;
-	}
-
-	int action = -1;
+	Page* destination = nullptr;
 	
-	do
+	while (!destination)
 	{
-		cout << endl << "====================" << endl;
-		cout << "Scegli un'azione:" << endl;
+		ShowActions();
 
-		for (int i = 0; i < Actions.size(); i++) {
-			cout << "\t(" << i << ") " << Actions[i]->Text << endl;
-		}
+		cout << endl << "Scegli un'azione... ";
 		
+		int action;
 		cin >> action;
-	} while (action < 0 || action >= Actions.size());
+
+		destination = GetActionDestination(action);
+	}
 	
-	Actions[action]->Execute();
+	return destination;
 }
 
 void Page::ReadText(string filename)
 {
+	if (!Text.empty())
+		return;
+
 	ifstream file(filename);
 
 	if (!file) 
@@ -68,19 +77,39 @@ void Page::ReadText(string filename)
 	{
 		Text += buf;
 
+		string text, dest;
+		getline(file, text, '|');
+		getline(file, dest, ']');
 
-		string tagText, tagDest;
-		getline(file, tagText, '|');
-		getline(file, tagDest, ']');
+		if (text != "")
+		{
+			Page* destPage = MyBook->LoadPage(dest);
+			Actions.push_back(new Action(destPage, text));
 
-		if (tagText != "")
-			Actions.push_back(new Action(new Page(tagDest), tagText));
+			Text += to_string(destPage->Id);
+		}
 	}
 
 	file.close();
 }
 
-void Page::ParseText()
+void Page::ShowActions()
 {
+	cout << endl <<  "Cosa vuoi fare?" << endl;
 
+	for (int i = 0; i < Actions.size(); i++)
+		cout << "  [" << Actions[i]->Destination->Id << "]  " << Actions[i]->Text << endl;
+}
+
+Page* const Page::GetActionDestination(int action)
+{
+	for (int i = 0; i < Actions.size(); i++)
+	{
+		Page* Destination = Actions[i]->Destination;
+		
+		if (action == Destination->Id)
+			return Destination;
+	}
+	
+	return nullptr;
 }

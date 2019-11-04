@@ -1,0 +1,8 @@
+Ti togli lo zaino dalle spalle e ti appresti a dormire nel tuo sacco a pelo.
+
+Prima ancora che tu riesca ad accorgetene, la sveglia che avevi puntato suona.
+Ti alzi, sentendoti carico di energie e pronto per continuare il viaggio.
+
+L'unica cosa che ti rimane da fare e` uscire dalla grotta e riprendere la marcia.
+
+Vai a pagina [Esci e continua il viaggio|fine.txt]).

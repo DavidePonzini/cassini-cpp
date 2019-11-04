@@ -1,5 +1,6 @@
 #pragma once
 
+#define PAGE_LEN 100
 
 #include <string>
 #include <vector>
@@ -7,16 +8,20 @@
 
 using namespace std;
 
-class Action;
+
+struct Action;
+class Book;
 
 
 class Page
 {
 public:
-	Page(string filename);
+	Page(string filename, int id, Book* book);
 
 public:
 	int Id;
+	Book* MyBook;
+	string Filename;
 
 private:
 	string Text;
@@ -24,10 +29,11 @@ private:
 
 public:
 	void ShowText();
-	void SelectAction();
+	Page* GetNextPage();
 
 private:
 	void ReadText(string filename);
-	void ParseText();
+	void ShowActions();
+	Page* const GetActionDestination(int action);
 };
 

@@ -1,0 +1,9 @@
+Decidi di esplorare la grotta.
+Ti bastano pochi passi per arrivare in uno spazio abbastanza largo per dormire la notte.
+
+Ti guardi attorno, ma non riesci a trovare nient'altro di interesse: la grotta non e` mai stata abitata prima d'ora
+e sembra non ci sia mai passata alcuna persona o animale.
+
+Se vuoi continuare a guardarti attorno, vai a pagina [Continua a guardare|guarda.txt];
+se preferisci metterti a dormire, vai a pagina [Dormi|dormi.txt];
+se scegli di uscire e continuare sul sentiero, vai a pagina [Esci|fine.txt].

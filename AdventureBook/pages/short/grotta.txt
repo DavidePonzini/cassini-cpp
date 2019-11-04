@@ -1,0 +1,6 @@
+Ti avvicini all'entrata della grotta, scostando le piante rampicanti che la ricoprono.
+
+La grotta e` molto buia e non riesci a capire cosa ci sia dentro e per quanto si estenda.
+
+Se vuoi accendere una torcia per vedere meglio, vai a pagina [Accendi una torcia|torcia.txt];
+se preferisci tornare sui tuoi passi e continuare sul sentiero, vai a pagina [Torna indietro e continua sul sentiero|fine.txt].

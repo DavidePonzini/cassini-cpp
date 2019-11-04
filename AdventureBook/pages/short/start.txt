@@ -1,0 +1,5 @@
+Stai percorrendo un sentiero nei boschi, quando intravedi quella che sembra
+essere l'entrata di una grotta.
+
+Se vuoi avvicinarti all'entrata, vai a pagina [Entra nella grotta|grotta.txt];
+se preferisci continuare per la tua strada, vai a pagina [Continua per la tua strada|fine.txt].

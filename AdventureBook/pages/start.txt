@@ -1,2 +1,0 @@
-Puoi entrare nella grotta[Entra nella grotta|grotta.txt] o
-continuare sul sentiero[Continua per la tua strada|fine.txt].
