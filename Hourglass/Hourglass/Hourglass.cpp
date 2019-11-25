@@ -36,7 +36,7 @@ void DrawLine(int level, int height, int top, int bottom)
 		if(abs(level) == height)						// top or bottom levels
 			cout << "#";
 		else if (i == 0 || i == lengthHourglass - 1)	// hourglass borders
-				cout << "#";
+			cout << "#";
 		else if(level > 0 && level < top)				// sand top
 			cout << ".";
 		else if (level < 0 && height+level < bottom)	// sand bottom
