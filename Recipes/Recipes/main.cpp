@@ -6,14 +6,10 @@
 #include "Recipe.h"
 #include "Recipes.h"
 #include "Ingredient.h"
+#include "Global.h"
 
 
 using namespace std;
-
-
-bool ReadIngredients(string filename, vector<Ingredient*>& ingredients);
-Ingredient* FindIngredient(string name, vector<Ingredient*>& ingredients);
-void ChangeIngredient(string name, vector<Ingredient*>& ingredients);
 
 
 int main(int argc, char* argv[])
@@ -24,11 +20,10 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
-	vector<Ingredient*> Ingredients;
-
-	if(!ReadIngredients(argv[1], Ingredients))
+	if(!global::IngredientList.ReadFile(argv[1]))
 	{
 		cerr << "Error reading file" << endl;
+		return 2;
 	}
 
 	Recipes recipes;
@@ -36,80 +31,82 @@ int main(int argc, char* argv[])
 	int choice = -1;
 	while (choice != 0)
 	{
-		cout << "Cosa vuoi fare?" << endl
-			<< "1. Ricerca ricetta per nome" << endl
-			<< "2. Ricerca ricetta per ingrediente" << endl
-			<< "3. Ricerca ricetta per calorie" << endl
-			<< "4. Leggi ricetta da input" << endl
-			<< "5. Leggi ricetta da file" << endl
-			<< "6. Salva ricetta su file" << endl
-			<< "7. Cancella ricetta" << endl
-			<< "8. Ricerca valori ingrediente" << endl
-			<< "9. Cambia valori ingrediente" << endl
-			<< "10. Trova ricetta con piu` calorie" << endl
-			<< "11. Trova ricetta con meno calorie" << endl
-			<< "12. Trova ricetta con piu` ingredienti" << endl
-			<< "13. Trova ricetta con meno ingredienti" << endl
-			<< "14. Trova ricette con pochi grassi ( < 10% )" << endl
-			<< "15. Calcola media calorie di tutte le ricette" << endl
-			<< "16. Calcola distribuzione carboidrati/grassi/proteine tra tutte le ricette" << endl
-			<< "0. Esci" << endl
-			<< endl;
+		cout << global::ACTIONS;
 
 		int tmp;
 		cin >> tmp;
 		switch (tmp)
 		{
 		case 1:
-		{
-			string name;
-			cout << "Nome ricetta: ";
-			cin >> name;
-			recipes.FindRecipeByName(name);
+			for (auto recipe : recipes.GetRecipes())
+				cout << recipe->GetName() << endl;
 			break;
-		}
 		case 2:
 		{
 			string name;
-			cout << "Nome ingrediente: ";
-			cin >> name;
-			recipes.FindRecipesByIngredient(name);
+			cout << "Nome ricetta: ";
+			getline(cin >> ws, name);
+			
+			Recipe* recipe = recipes.FindRecipeByName(name);
+			if (!recipe)
+				cout << "La ricetta non esiste" << endl;
+			else
+				recipe->Print();
+			
 			break;
 		}
 		case 3:
+		{
+			string name;
+			cout << "Nome ingrediente: ";
+			getline(cin >> ws, name);
+
+			for (auto recipe : recipes.FindRecipesByIngredient(name))
+				cout << recipe->GetName();
+			
+			break;
+		}
+		case 4:
 		{
 			float cal_min, cal_max;
 			cout << "Minimo calorie: ";
 			cin >> cal_min;
 			cout << "Massimo calorie: ";
 			cin >> cal_max;
-			recipes.FindRecipesByCalories(cal_min, cal_max);
+			
+			for (auto recipe : recipes.FindRecipesByCalories(cal_min, cal_max))
+				cout << recipe->GetName();
+
 			break;
 		}
-		case 4:
+		case 5:
 			recipes.ReadRecipeFromInput();
 			break;
-		case 5:
-		{
-			string name;
-			cout << "Nome file: ";
-			cin >> name;
-			recipes.ReadRecipeFromFile(name);
-			break;
-		}
 		case 6:
 		{
 			string name;
 			cout << "Nome file: ";
-			cin >> name;
-			recipes.SaveRecipeToFile(name);
+			getline(cin >> ws, name);
+			
+			recipes.ReadRecipeFromFile(name);
+			
 			break;
 		}
 		case 7:
 		{
 			string name;
+			cout << "Nome file: ";
+			getline(cin >> ws, name);
+			
+			recipes.SaveRecipeToFile(name);
+			
+			break;
+		}
+		case 8:
+		{
+			string name;
 			cout << "Nome ricetta: ";
-			cin >> name;
+			getline(cin >> ws, name);
 			
 			if (recipes.DeleteRecipe(name))
 				cout << "Ricetta cancellata" << endl;
@@ -118,13 +115,13 @@ int main(int argc, char* argv[])
 
 			break;
 		}
-		case 8:
+		case 9:
 		{
 			string name;
 			cout << "Nome ingrediente: ";
-			cin >> name;
+			getline(cin >> ws, name);
 
-			Ingredient* ingredient = FindIngredient(name, Ingredients);
+			Ingredient* ingredient = global::IngredientList.Get(name);
 			if (!ingredient) {
 				cout << "L'ingrediente non esiste" << endl;
 				break;
@@ -134,12 +131,39 @@ int main(int argc, char* argv[])
 
 			break;
 		}
-		case 9:
+		case 10:
 		{
 			string name;
 			cout << "Nome ingrediente: ";
-			cin >> name;
-			ChangeIngredient(name, Ingredients);
+			getline(cin >> ws, name);
+			global::IngredientList.ChangeValues(name);
+			break;
+		}
+		case 11:
+			cout << recipes.FindRecipeWithMostCalories()->GetName() << endl;
+			break;
+		case 12:
+			cout << recipes.FindRecipeWithLeastCalories()->GetName() << endl;
+			break;
+		case 13:
+			cout << recipes.FindRecipeWithMostIngredients()->GetName() << endl;
+			break;
+		case 14:
+			cout << recipes.FindRecipeWithLeastIngredients()->GetName() << endl;
+			break;
+		case 15:
+			for (auto recipe : recipes.FindRecipesLowFat())
+				cout << recipe->GetName() << endl;
+			break;
+		case 16:
+			cout << recipes.GetAverageCalories() << " cals" << endl;
+			break;
+		case 17:
+		{
+			float* distribution = recipes.GetMacronutrientsDistribution();
+			cout << "Carboidrati: " << distribution[0] * 100 << "%" << endl;
+			cout << "Grassi:      " << distribution[1] * 100 << "%" << endl;
+			cout << "Proteine:    " << distribution[2] * 100 << "%" << endl;
 			break;
 		}
 		case 0:
@@ -148,55 +172,4 @@ int main(int argc, char* argv[])
 			break;
 		}
 	}
-}
-
-bool ReadIngredients(string filename, vector<Ingredient*>& ingredients)
-{
-	ifstream file(filename);
-
-	if (!file)
-		return false;
-
-	string buf;
-	getline(file, buf); // discard first line
-	cerr << buf << endl;
-
-	while (!getline(file, buf, ','))
-	{
-		string name = buf;
-		cerr << buf << endl;
-
-		getline(file, buf, ',');
-		float carbs = stof(buf);
-
-		getline(file, buf, ',');
-		float fats = stof(buf);
-
-		getline(file, buf);
-		float proteins = stof(buf);
-		
-
-		Ingredient* ingredient = new Ingredient(name, carbs, fats, proteins);
-		ingredients.push_back(ingredient);
-	}
-
-	file.close();
-
-	return true;
-}
-
-Ingredient* FindIngredient(string name, vector<Ingredient*>& ingredients)
-{
-	for (auto ingredient : ingredients)
-	{
-		if (ingredient->GetName() == name)
-			return ingredient;
-	}
-
-	return nullptr;
-}
-
-void ChangeIngredient(string name, vector<Ingredient*>& ingredients)
-{
-
 }

@@ -8,7 +8,6 @@
 #include <vector>
 #include "Recipe.h"
 
-
 using namespace std;
 
 
@@ -18,6 +17,8 @@ private:
 	vector<Recipe*> RecipeList;
 
 public:
+	vector<Recipe*> GetRecipes();
+	
 	// Find (necessarie per il 6)
 	Recipe* FindRecipeByName(string name);
 	vector<Recipe*> FindRecipesByIngredient(string name);
@@ -33,14 +34,14 @@ public:
 	// Delete (necessaria per il 6)
 	bool DeleteRecipe(string name);	// se non esiste, ritorna false
 	
-	// Analysis (ciascuna funzione vale 0.5 punti)
+	// Advanced Search (ciascuna funzione vale 0.5 punti)
 	Recipe* FindRecipeWithMostIngredients();
 	Recipe* FindRecipeWithLeastIngredients();
 	Recipe* FindRecipeWithMostCalories();
 	Recipe* FindRecipeWithLeastCalories();
-	Recipe** FindRecipesLowFat(); //suggerimento: perche` vi sto chiedendo un puntatore a puntatore? Cosa significa?
+	vector<Recipe*> FindRecipesLowFat();
 	
-	// Advanced analysis (ciascuna funzione vale 0.75 punti)
+	// Analysis (ciascuna funzione vale 0.75 punti)
 	float GetAverageCalories();
 	float* GetMacronutrientsDistribution(); // suggerimento: dovete ritornare 3 valori, perche` vi sto chiedento un float* ?
 };

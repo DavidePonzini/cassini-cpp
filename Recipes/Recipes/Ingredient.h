@@ -5,7 +5,6 @@
  */
 
 #pragma once
-
 #include <string>
 
 using namespace std;
@@ -28,6 +27,8 @@ public:
 	const float GetFats();
 	const float GetProteins();
 	const float GetCalories();
+	
+	void SetValues(float carbs, float fats, float proteins);
 
 	void Print();
 };

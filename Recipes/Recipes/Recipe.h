@@ -5,7 +5,6 @@
  */
 
 #pragma once
-
 #include <string>
 #include <map>
 #include <vector>
@@ -30,6 +29,7 @@ public:
 	const float GetProteins();
 
 	vector<Ingredient*> GetIngredients();
+	void AddIngredient(Ingredient* ingredient, float quantity);
 	const bool ContainsIngredient(string name);
 
 	void Print();

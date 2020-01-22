@@ -151,13 +151,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Global.cpp" />
     <ClCompile Include="Ingredient.cpp" />
+    <ClCompile Include="Ingredients.cpp" />
     <ClCompile Include="Recipe.cpp" />
     <ClCompile Include="Recipes.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Global.h" />
     <ClInclude Include="Ingredient.h" />
+    <ClInclude Include="Ingredients.h" />
     <ClInclude Include="Recipe.h" />
     <ClInclude Include="Recipes.h" />
   </ItemGroup>

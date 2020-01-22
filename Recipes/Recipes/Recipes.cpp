@@ -1,7 +1,24 @@
+#include <iostream>
+
 #include "Recipes.h"
+#include "Global.h"
+
+using namespace std;
+
+
+vector<Recipe*> Recipes::GetRecipes()
+{
+	return RecipeList;
+}
 
 Recipe* Recipes::FindRecipeByName(string name)
 {
+	for (auto recipe : RecipeList)
+	{
+		if (recipe->GetName() == name)
+			return recipe;
+	}
+
 	return nullptr;
 }
 
@@ -33,7 +50,51 @@ vector<Recipe*> Recipes::FindRecipesByCalories(float cals_min, float cals_max)
 
 void Recipes::ReadRecipeFromInput()
 {
+	string recipeName, ingredientName;
+	float ingredientQuantity;
+	
+	cout << "Nome ricetta: ";
+	getline(cin >> ws, recipeName);
 
+	while (FindRecipeByName(recipeName))
+	{
+		cout << "La ricetta esiste gia`, scegli un altro nome: ";
+		getline(cin >> ws, recipeName);
+	}
+
+	Recipe* recipe = new Recipe(recipeName);
+	RecipeList.push_back(recipe);
+
+	
+	cout << "Nome ingrediente (\"stop\" per terminare): ";
+	getline(cin >> ws, ingredientName);
+
+	while (ingredientName != "stop")
+	{
+		Ingredient* ingredient = global::IngredientList.Get(ingredientName);
+
+		while (!ingredient)
+		{
+			cout << "L'ingrediente non esiste, riprova: ";
+			getline(cin >> ws, ingredientName);
+		
+			continue;
+		}
+
+		cout << "Quantita`: ";
+		cin >> ingredientQuantity;
+
+		while (ingredientQuantity <= 0)
+		{
+			cout << "La quantita` deve essere maggiore di 0, riprova: ";
+			cin >> ingredientQuantity;
+		}
+
+		recipe->AddIngredient(ingredient, ingredientQuantity);
+
+		cout << "Nome prossimo ingrediente (\"stop\" per terminare): ";
+		getline(cin >> ws, ingredientName);
+	}
 }
 
 bool Recipes::ReadRecipeFromFile(string filename)
@@ -123,7 +184,7 @@ Recipe* Recipes::FindRecipeWithLeastCalories()
 	return result;
 }
 
-Recipe** Recipes::FindRecipesLowFat()
+vector<Recipe*> Recipes::FindRecipesLowFat()
 {
 	vector<Recipe*> result;
 
@@ -139,7 +200,7 @@ Recipe** Recipes::FindRecipesLowFat()
 			result.push_back(recipe);
 	}
 
-	return result.data();
+	return result;
 }
 
 float Recipes::GetAverageCalories()

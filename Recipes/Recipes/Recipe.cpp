@@ -1,4 +1,10 @@
+#include <iostream>
+
 #include "Recipe.h"
+
+
+using namespace std;
+
 
 Recipe::Recipe(string name)
 {
@@ -57,6 +63,11 @@ vector<Ingredient*> Recipe::GetIngredients()
 	return ingredients;
 }
 
+void Recipe::AddIngredient(Ingredient* ingredient, float quantity)
+{
+	this->Ingredients[ingredient] = quantity;
+}
+
 const bool Recipe::ContainsIngredient(string name)
 {
 	for (auto ingredient : Ingredients)
@@ -70,4 +81,14 @@ const bool Recipe::ContainsIngredient(string name)
 
 void Recipe::Print()
 {
+	cout << "--- " << GetName() << " ---" << endl;
+	
+	cout << "Ingredients:" << endl;
+	for (auto ingredient : Ingredients)
+		cout << "\t - " << ingredient.first->GetName() << ": " << ingredient.second << "g" << endl;
+
+	cout << "Calorie:     " << GetCalories() << " cals" << endl;
+	cout << "Carboidrati: " << GetCarbs() << "g" << endl;
+	cout << "Grassi:      " << GetFats() << "g" << endl;
+	cout << "Proteine:    " << GetProteins() << "g" << endl;
 }

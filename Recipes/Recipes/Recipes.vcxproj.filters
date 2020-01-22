@@ -27,6 +27,12 @@
     <ClCompile Include="Recipes.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="Ingredients.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="Global.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ingredient.h">
@@ -36,6 +42,12 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="Recipes.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Global.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Ingredients.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

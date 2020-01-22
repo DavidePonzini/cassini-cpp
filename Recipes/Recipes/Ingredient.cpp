@@ -9,9 +9,7 @@ using namespace std;
 Ingredient::Ingredient(string name, float carbs, float fats, float proteins)
 {
 	this->Name = name;
-	this->Carbs = carbs;
-	this->Fats = fats;
-	this->Proteins = proteins;
+	SetValues(carbs, fats, proteins);
 }
 
 const string Ingredient::GetName()
@@ -39,11 +37,18 @@ const float Ingredient::GetCalories()
 	return this->Carbs * 4 + this->Proteins * 4 + this->Fats * 9;
 }
 
+void Ingredient::SetValues(float carbs, float fats, float proteins)
+{
+	this->Carbs = carbs < 0 ? 0 : carbs;
+	this->Fats = fats < 0 ? 0 : fats;
+	this->Proteins = proteins < 0 ? 0 : proteins;
+}
+
 void Ingredient::Print()
 {
 	cout << "--- " << Name << " ---" << endl;
-	cout << "\tCalorie (per 100g): " << GetCalories() << "cals" << endl;
-	cout << "\tCarboidrati (per 100g): " << Carbs << "g" << endl;
-	cout << "\tGrassi (per 100g): " << Fats<< "g" << endl;
-	cout << "\tProteine (per 100g): " << Proteins << "g" << endl;
+	cout << "Calorie (per 100g):     " << GetCalories() << " cals" << endl;
+	cout << "Carboidrati (per 100g): " << Carbs << "g" << endl;
+	cout << "Grassi (per 100g):      " << Fats<< "g" << endl;
+	cout << "Proteine (per 100g):    " << Proteins << "g" << endl;
 }
