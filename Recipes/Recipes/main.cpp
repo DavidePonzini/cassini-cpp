@@ -45,9 +45,17 @@ int main(int argc, char* argv[])
 			<< "4. Leggi ricetta da input" << endl
 			<< "5. Leggi ricetta da file" << endl
 			<< "6. Salva ricetta su file" << endl
-			<< "7. Ricerca valori ingrediente" << endl
-			<< "8. Cambia valori ingrediente" << endl
-			<< "9. Esci" << endl
+			<< "7. Cancella ricetta" << endl
+			<< "8. Ricerca valori ingrediente" << endl
+			<< "9. Cambia valori ingrediente" << endl
+			<< "10. Trova ricetta con piu` calorie" << endl
+			<< "11. Trova ricetta con meno calorie" << endl
+			<< "12. Trova ricetta con piu` ingredienti" << endl
+			<< "13. Trova ricetta con meno ingredienti" << endl
+			<< "14. Trova ricette con pochi grassi ( < 10% )" << endl
+			<< "15. Calcola media calorie di tutte le ricette" << endl
+			<< "16. Calcola distribuzione carboidrati/grassi/proteine tra tutte le ricette" << endl
+			<< "0. Esci" << endl
 			<< endl;
 
 		int tmp;
