@@ -11,9 +11,9 @@
 using namespace std;
 
 
-void ReadIngredients(string filename, vector<Ingredient*>& ingredients);
-Ingredient* FindIngredient(string name);
-void ChangeIngredient(string name);
+bool ReadIngredients(string filename, vector<Ingredient*>& ingredients);
+Ingredient* FindIngredient(string name, vector<Ingredient*>& ingredients);
+void ChangeIngredient(string name, vector<Ingredient*>& ingredients);
 
 
 int main(int argc, char* argv[])
@@ -26,16 +26,14 @@ int main(int argc, char* argv[])
 
 	vector<Ingredient*> Ingredients;
 
-	try {
-		ReadIngredients(argv[1], Ingredients);
-	}
-	catch (string& error) {
-		cerr << "Error:" << error << endl;
+	if(!ReadIngredients(argv[1], Ingredients))
+	{
+		cerr << "Error reading file" << endl;
 	}
 
 	Recipes recipes;
 
-	int choice = 0;
+	int choice = -1;
 	while (choice != 0)
 	{
 		cout << "Cosa vuoi fare?" << endl
@@ -75,7 +73,7 @@ int main(int argc, char* argv[])
 			string name;
 			cout << "Nome ingrediente: ";
 			cin >> name;
-			recipes.FindRecipeByIngredient(name);
+			recipes.FindRecipesByIngredient(name);
 			break;
 		}
 		case 3:
@@ -85,7 +83,7 @@ int main(int argc, char* argv[])
 			cin >> cal_min;
 			cout << "Massimo calorie: ";
 			cin >> cal_max;
-			recipes.FindRecipeByCalories(cal_min, cal_max);
+			recipes.FindRecipesByCalories(cal_min, cal_max);
 			break;
 		}
 		case 4:
@@ -110,9 +108,14 @@ int main(int argc, char* argv[])
 		case 7:
 		{
 			string name;
-			cout << "Nome ingrediente: ";
+			cout << "Nome ricetta: ";
 			cin >> name;
-			FindIngredient(name);
+			
+			if (recipes.DeleteRecipe(name))
+				cout << "Ricetta cancellata" << endl;
+			else
+				cout << "Ricetta non esistente" << endl;
+
 			break;
 		}
 		case 8:
@@ -120,10 +123,26 @@ int main(int argc, char* argv[])
 			string name;
 			cout << "Nome ingrediente: ";
 			cin >> name;
-			ChangeIngredient(name);
+
+			Ingredient* ingredient = FindIngredient(name, Ingredients);
+			if (!ingredient) {
+				cout << "L'ingrediente non esiste" << endl;
+				break;
+			}
+
+			ingredient->Print();
+
 			break;
 		}
 		case 9:
+		{
+			string name;
+			cout << "Nome ingrediente: ";
+			cin >> name;
+			ChangeIngredient(name, Ingredients);
+			break;
+		}
+		case 0:
 			return 0;
 		default:
 			break;
@@ -131,32 +150,53 @@ int main(int argc, char* argv[])
 	}
 }
 
-void ReadIngredients(string filename, vector<Ingredient*>& ingredients)
+bool ReadIngredients(string filename, vector<Ingredient*>& ingredients)
 {
 	ifstream file(filename);
 
 	if (!file)
-		throw "Error reading file";
+		return false;
 
-	while (!file.eof())
+	string buf;
+	getline(file, buf); // discard first line
+	cerr << buf << endl;
+
+	while (!getline(file, buf, ','))
 	{
-		string name;
-		float carbs, fats, proteins;
-		file >> name >> carbs >> fats >> proteins;
+		string name = buf;
+		cerr << buf << endl;
+
+		getline(file, buf, ',');
+		float carbs = stof(buf);
+
+		getline(file, buf, ',');
+		float fats = stof(buf);
+
+		getline(file, buf);
+		float proteins = stof(buf);
+		
 
 		Ingredient* ingredient = new Ingredient(name, carbs, fats, proteins);
 		ingredients.push_back(ingredient);
 	}
 
 	file.close();
+
+	return true;
 }
 
-Ingredient* FindIngredient(string name)
+Ingredient* FindIngredient(string name, vector<Ingredient*>& ingredients)
 {
+	for (auto ingredient : ingredients)
+	{
+		if (ingredient->GetName() == name)
+			return ingredient;
+	}
+
 	return nullptr;
 }
 
-void ChangeIngredient(string name)
+void ChangeIngredient(string name, vector<Ingredient*>& ingredients)
 {
 
 }

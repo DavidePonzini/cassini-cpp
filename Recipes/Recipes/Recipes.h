@@ -15,7 +15,7 @@ using namespace std;
 class Recipes
 {
 private:
-	vector<Recipe*> Recipes;
+	vector<Recipe*> RecipeList;
 
 public:
 	// Find (necessarie per il 6)

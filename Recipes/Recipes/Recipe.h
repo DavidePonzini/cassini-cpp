@@ -8,6 +8,7 @@
 
 #include <string>
 #include <map>
+#include <vector>
 #include "Ingredient.h"
 
 using namespace std;
@@ -28,6 +29,9 @@ public:
 	const float GetFats();
 	const float GetProteins();
 
+	vector<Ingredient*> GetIngredients();
 	const bool ContainsIngredient(string name);
+
+	void Print();
 };
 

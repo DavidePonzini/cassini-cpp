@@ -28,5 +28,7 @@ public:
 	const float GetFats();
 	const float GetProteins();
 	const float GetCalories();
+
+	void Print();
 };
 

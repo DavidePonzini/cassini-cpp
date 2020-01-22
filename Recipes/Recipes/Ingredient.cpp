@@ -1,4 +1,10 @@
+#include <iostream>
+
 #include "Ingredient.h"
+
+
+using namespace std;
+
 
 Ingredient::Ingredient(string name, float carbs, float fats, float proteins)
 {
@@ -31,4 +37,13 @@ const float Ingredient::GetProteins()
 const float Ingredient::GetCalories()
 {
 	return this->Carbs * 4 + this->Proteins * 4 + this->Fats * 9;
+}
+
+void Ingredient::Print()
+{
+	cout << "--- " << Name << " ---" << endl;
+	cout << "\tCalorie (per 100g): " << GetCalories() << "cals" << endl;
+	cout << "\tCarboidrati (per 100g): " << Carbs << "g" << endl;
+	cout << "\tGrassi (per 100g): " << Fats<< "g" << endl;
+	cout << "\tProteine (per 100g): " << Proteins << "g" << endl;
 }

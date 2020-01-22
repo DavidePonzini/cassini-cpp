@@ -47,6 +47,16 @@ const float Recipe::GetProteins()
 	return proteins;
 }
 
+vector<Ingredient*> Recipe::GetIngredients()
+{
+	vector<Ingredient*> ingredients;
+
+	for (auto elem : Ingredients)
+		ingredients.push_back(elem.first);
+
+	return ingredients;
+}
+
 const bool Recipe::ContainsIngredient(string name)
 {
 	for (auto ingredient : Ingredients)
@@ -56,4 +66,8 @@ const bool Recipe::ContainsIngredient(string name)
 	}
 
 	return false;
+}
+
+void Recipe::Print()
+{
 }
