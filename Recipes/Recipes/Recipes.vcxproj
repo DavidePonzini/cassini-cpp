@@ -153,17 +153,17 @@
   <ItemGroup>
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="Ingredient.cpp" />
-    <ClCompile Include="Ingredients.cpp" />
+    <ClCompile Include="IngredientList.cpp" />
     <ClCompile Include="Recipe.cpp" />
-    <ClCompile Include="Recipes.cpp" />
+    <ClCompile Include="RecipeList.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Global.h" />
     <ClInclude Include="Ingredient.h" />
-    <ClInclude Include="Ingredients.h" />
+    <ClInclude Include="IngredientList.h" />
     <ClInclude Include="Recipe.h" />
-    <ClInclude Include="Recipes.h" />
+    <ClInclude Include="RecipeList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

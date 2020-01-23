@@ -1,19 +1,20 @@
 #include <iostream>
+#include <fstream>
 
-#include "Recipes.h"
+#include "RecipeList.h"
 #include "Global.h"
 
 using namespace std;
 
 
-vector<Recipe*> Recipes::GetRecipes()
+vector<Recipe*> RecipeList::GetRecipes()
 {
-	return RecipeList;
+	return Recipes;
 }
 
-Recipe* Recipes::FindRecipeByName(string name)
+Recipe* RecipeList::FindRecipeByName(string name)
 {
-	for (auto recipe : RecipeList)
+	for (auto recipe : Recipes)
 	{
 		if (recipe->GetName() == name)
 			return recipe;
@@ -22,11 +23,11 @@ Recipe* Recipes::FindRecipeByName(string name)
 	return nullptr;
 }
 
-vector<Recipe*> Recipes::FindRecipesByIngredient(string name)
+vector<Recipe*> RecipeList::FindRecipesByIngredient(string name)
 {
 	vector<Recipe*> result;
 
-	for (auto recipe : RecipeList)
+	for (auto recipe : Recipes)
 	{
 		if (recipe->ContainsIngredient(name))
 			result.push_back(recipe);
@@ -35,11 +36,11 @@ vector<Recipe*> Recipes::FindRecipesByIngredient(string name)
 	return result;
 }
 
-vector<Recipe*> Recipes::FindRecipesByCalories(float cals_min, float cals_max)
+vector<Recipe*> RecipeList::FindRecipesByCalories(float cals_min, float cals_max)
 {
 	vector<Recipe*> result;
 
-	for (auto recipe : RecipeList)
+	for (auto recipe : Recipes)
 	{
 		if (recipe->GetCalories() >= cals_min && recipe->GetCalories() <= cals_max)
 			result.push_back(recipe);
@@ -48,7 +49,7 @@ vector<Recipe*> Recipes::FindRecipesByCalories(float cals_min, float cals_max)
 	return result;
 }
 
-void Recipes::ReadRecipeFromInput()
+void RecipeList::ReadRecipeFromInput()
 {
 	string recipeName, ingredientName;
 	float ingredientQuantity;
@@ -63,7 +64,7 @@ void Recipes::ReadRecipeFromInput()
 	}
 
 	Recipe* recipe = new Recipe(recipeName);
-	RecipeList.push_back(recipe);
+	Recipes.push_back(recipe);
 
 	
 	cout << "Nome ingrediente (\"stop\" per terminare): ";
@@ -71,7 +72,7 @@ void Recipes::ReadRecipeFromInput()
 
 	while (ingredientName != "stop")
 	{
-		Ingredient* ingredient = global::IngredientList.Get(ingredientName);
+		Ingredient* ingredient = Ingredients.Get(ingredientName);
 
 		while (!ingredient)
 		{
@@ -97,26 +98,63 @@ void Recipes::ReadRecipeFromInput()
 	}
 }
 
-bool Recipes::ReadRecipeFromFile(string filename)
+bool RecipeList::ReadRecipeFromFile(string filename)
 {
+	ifstream file(filename);
+	if (!file)
+		return false;
+
+	string name;
+	getline(file >> ws, name);
+
+	Recipe* recipe = new Recipe(name);
+	Recipes.push_back(recipe);
+
+	string ingredientName;
+	float quantity;
+	while (getline(file >> ws, ingredientName, ','))
+	{
+		file >> ws >> quantity;
+
+		Ingredient* ingredient = Ingredients.Get(ingredientName);
+		if (!ingredient)
+			continue;
+
+		recipe->AddIngredient(ingredient, quantity);
+	}
+
+	return true;
+}
+
+bool RecipeList::SaveRecipeToFile(string name, string filename)
+{
+	Recipe* recipe = FindRecipeByName(name);
+
+	if (!recipe)
+		return false;
+
+	return recipe->WriteToFile(filename);
+}
+
+bool RecipeList::DeleteRecipe(string name)
+{
+	for (vector<Recipe*>::iterator itr = Recipes.begin(); itr != Recipes.end(); itr++)
+	{
+		if ((*itr)->GetName() == name)
+		{
+			Recipes.erase(itr);
+			return true;
+		}
+	}
+
 	return false;
 }
 
-void Recipes::SaveRecipeToFile(string filename)
-{
-
-}
-
-bool Recipes::DeleteRecipe(string name)
-{
-	return false;
-}
-
-Recipe* Recipes::FindRecipeWithMostIngredients()
+Recipe* RecipeList::FindRecipeWithMostIngredients()
 {
 	Recipe* result = nullptr;
 
-	for (auto recipe : RecipeList)
+	for (auto recipe : Recipes)
 	{
 		if (!result) {
 			result = recipe;
@@ -130,11 +168,11 @@ Recipe* Recipes::FindRecipeWithMostIngredients()
 	return result;
 }
 
-Recipe* Recipes::FindRecipeWithLeastIngredients()
+Recipe* RecipeList::FindRecipeWithLeastIngredients()
 {
 	Recipe* result = nullptr;
 
-	for (auto recipe : RecipeList)
+	for (auto recipe : Recipes)
 	{
 		if (!result) {
 			result = recipe;
@@ -148,11 +186,11 @@ Recipe* Recipes::FindRecipeWithLeastIngredients()
 	return result;
 }
 
-Recipe* Recipes::FindRecipeWithMostCalories()
+Recipe* RecipeList::FindRecipeWithMostCalories()
 {
 	Recipe* result = nullptr;
 
-	for (auto recipe : RecipeList)
+	for (auto recipe : Recipes)
 	{
 		if (!result) {
 			result = recipe;
@@ -166,11 +204,11 @@ Recipe* Recipes::FindRecipeWithMostCalories()
 	return result;
 }
 
-Recipe* Recipes::FindRecipeWithLeastCalories()
+Recipe* RecipeList::FindRecipeWithLeastCalories()
 {
 	Recipe* result = nullptr;
 
-	for (auto recipe : RecipeList)
+	for (auto recipe : Recipes)
 	{
 		if (!result) {
 			result = recipe;
@@ -184,11 +222,11 @@ Recipe* Recipes::FindRecipeWithLeastCalories()
 	return result;
 }
 
-vector<Recipe*> Recipes::FindRecipesLowFat()
+vector<Recipe*> RecipeList::FindRecipesLowFat()
 {
 	vector<Recipe*> result;
 
-	for (auto recipe : RecipeList)
+	for (auto recipe : Recipes)
 	{
 		auto fats = recipe->GetFats();
 		auto carbs = recipe->GetCarbs();
@@ -203,25 +241,25 @@ vector<Recipe*> Recipes::FindRecipesLowFat()
 	return result;
 }
 
-float Recipes::GetAverageCalories()
+float RecipeList::GetAverageCalories()
 {
 	float total = 0.f;
 
-	for (auto recipe : RecipeList)
+	for (auto recipe : Recipes)
 	{
 		total += recipe->GetCalories();
 	}
 
-	return total / RecipeList.size();
+	return total / Recipes.size();
 }
 
-float* Recipes::GetMacronutrientsDistribution()
+float* RecipeList::GetMacronutrientsDistribution()
 {
 	auto totalCarbs = 0.f;
 	auto totalFats = 0.f;
 	auto totalProteins = 0.f;
 
-	for (auto recipe : RecipeList)
+	for (auto recipe : Recipes)
 	{
 		totalCarbs += recipe->GetCarbs();
 		totalFats += recipe->GetFats();

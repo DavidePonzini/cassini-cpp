@@ -4,7 +4,7 @@
 #include <fstream>
 
 #include "Recipe.h"
-#include "Recipes.h"
+#include "RecipeList.h"
 #include "Ingredient.h"
 #include "Global.h"
 
@@ -20,13 +20,13 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
-	if(!global::IngredientList.ReadFile(argv[1]))
+	if(!Ingredients.ReadFile(argv[1]))
 	{
 		cerr << "Error reading file" << endl;
 		return 2;
 	}
 
-	Recipes recipes;
+	RecipeList recipes;
 
 	int choice = -1;
 	while (choice != 0)
@@ -88,17 +88,27 @@ int main(int argc, char* argv[])
 			cout << "Nome file: ";
 			getline(cin >> ws, name);
 			
-			recipes.ReadRecipeFromFile(name);
+			if (recipes.ReadRecipeFromFile(name))
+				cout << "Ricetta aggiunta" << endl;
+			else
+				cout << "Impossibile leggere la ricetta" << endl;
 			
 			break;
 		}
 		case 7:
 		{
 			string name;
-			cout << "Nome file: ";
+			cout << "Nome ricetta: ";
 			getline(cin >> ws, name);
+
+			string filename;
+			cout << "Nome file: ";
+			getline(cin >> ws, filename);
 			
-			recipes.SaveRecipeToFile(name);
+			if (recipes.SaveRecipeToFile(name, filename))
+				cout << "Ricetta salvata" << endl;
+			else
+				cout << "Impossibile salvare ricetta" << endl;
 			
 			break;
 		}
@@ -121,7 +131,7 @@ int main(int argc, char* argv[])
 			cout << "Nome ingrediente: ";
 			getline(cin >> ws, name);
 
-			Ingredient* ingredient = global::IngredientList.Get(name);
+			Ingredient* ingredient = Ingredients.Get(name);
 			if (!ingredient) {
 				cout << "L'ingrediente non esiste" << endl;
 				break;
@@ -136,7 +146,7 @@ int main(int argc, char* argv[])
 			string name;
 			cout << "Nome ingrediente: ";
 			getline(cin >> ws, name);
-			global::IngredientList.ChangeValues(name);
+			Ingredients.ChangeValues(name);
 			break;
 		}
 		case 11:

@@ -5,6 +5,6 @@
  */
 
 #include "Global.h"
-#include "Ingredients.h"
+#include "IngredientList.h"
 
-Ingredients global::IngredientList;
+IngredientList Ingredients;

@@ -7,18 +7,24 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "Ingredients.h"
+#include "IngredientList.h"
 
 using namespace std;
 
 
+// "extern" is needed to avoid declaring the same variable multiple times if this file is included multiple times.
+//     It basically tells the compiler that a variable called IngredientList exists somewhere in the program,
+//     but is defined in another file (hence the term "extern").
+// The actual value of the variable needs to be declared only once in the program,
+//     by writing "Ingredients IngredientList;" in a .cpp file of your choice.
+// If another file needs to access this variable, we only need to import this .h file,
+//     and not the .cpp one defining its actual value.
+//     In this way, we can prevent circular dependencies, which could make our code uncompilable.
+extern IngredientList Ingredients;
+
+
 namespace global
 {
-	// "extern" is needed to avoid declaring the same variable multiple times if this file is included multiple times.
-	// It basically tells the compiler that a variable called IngredientList exists somewhere in the program, but is defined in another file (hence the term "extern").
-	// The actual value of the variable needs to be declared only once in the program, by writing "Ingredients global::IngredientList;" in a cpp file of your choice
-	extern Ingredients IngredientList;
-
 	// There's no need to declare this variable "extern", since its value is constant
 	const string ACTIONS =
 		"\n"

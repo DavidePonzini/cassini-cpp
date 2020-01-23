@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 
 #include "Recipe.h"
 
@@ -91,4 +92,21 @@ void Recipe::Print()
 	cout << "Carboidrati: " << GetCarbs() << "g" << endl;
 	cout << "Grassi:      " << GetFats() << "g" << endl;
 	cout << "Proteine:    " << GetProteins() << "g" << endl;
+}
+
+bool Recipe::WriteToFile(string filename)
+{
+	ofstream file(filename);
+	if (!file)
+		return false;
+
+	file << GetName() << endl;
+	
+	for (auto ingredient : Ingredients)
+		file << ingredient.first->GetName() << ',' << ingredient.second << endl;
+
+	file.close();
+
+	return true;
+
 }

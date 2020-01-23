@@ -33,5 +33,7 @@ public:
 	const bool ContainsIngredient(string name);
 
 	void Print();
+
+	bool WriteToFile(string filename);
 };
 

@@ -11,10 +11,10 @@
 using namespace std;
 
 
-class Recipes
+class RecipeList
 {
 private:
-	vector<Recipe*> RecipeList;
+	vector<Recipe*> Recipes;
 
 public:
 	vector<Recipe*> GetRecipes();
@@ -29,7 +29,7 @@ public:
 	bool ReadRecipeFromFile(string filename);	// se il file non esiste, avvisa l'utente. Il programma non termina
 
 	// Save (necessaria per il 6)
-	void SaveRecipeToFile(string filename);
+	bool SaveRecipeToFile(string name, string filename);	// se il file non esiste, avvisa l'utente. Il programma non termina
 	
 	// Delete (necessaria per il 6)
 	bool DeleteRecipe(string name);	// se non esiste, ritorna false

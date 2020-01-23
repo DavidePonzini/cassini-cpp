@@ -24,13 +24,13 @@
     <ClCompile Include="main.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="Recipes.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="Ingredients.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
     <ClCompile Include="Global.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="IngredientList.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="RecipeList.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,13 +41,13 @@
     <ClInclude Include="Recipe.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Recipes.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
     <ClInclude Include="Global.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Ingredients.h">
+    <ClInclude Include="IngredientList.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="RecipeList.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

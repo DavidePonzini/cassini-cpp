@@ -1,21 +1,21 @@
 #include <fstream>
 #include <iostream>
 
-#include "Ingredients.h"
+#include "IngredientList.h"
 
 
 using namespace std;
 
 
-void Ingredients::Add(string name, float carbs, float fats, float proteins)
+void IngredientList::Add(string name, float carbs, float fats, float proteins)
 {
 	Ingredient* ingredient = new Ingredient(name, carbs, fats, proteins);
-	IngredientList.push_back(ingredient);
+	Ingredients.push_back(ingredient);
 }
 
-Ingredient* Ingredients::Get(string name)
+Ingredient* IngredientList::Get(string name)
 {
-	for (auto ingredient : IngredientList)
+	for (auto ingredient : Ingredients)
 	{
 		if (ingredient->GetName() == name)
 			return ingredient;
@@ -24,7 +24,7 @@ Ingredient* Ingredients::Get(string name)
 	return nullptr;
 }
 
-void Ingredients::ChangeValues(string name)
+void IngredientList::ChangeValues(string name)
 {
 	Ingredient* ingredient = Get(name);
 
@@ -49,7 +49,7 @@ void Ingredients::ChangeValues(string name)
 	ingredient->SetValues(carbs, fats, proteins);
 }
 
-bool Ingredients::ReadFile(string filename)
+bool IngredientList::ReadFile(string filename)
 {
 	ifstream file(filename);
 

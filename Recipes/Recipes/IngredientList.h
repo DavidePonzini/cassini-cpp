@@ -11,10 +11,10 @@
 using namespace std;
 
 
-class Ingredients
+class IngredientList
 {
 private:
-	vector<Ingredient*> IngredientList;
+	vector<Ingredient*> Ingredients;
 
 public:
 	void Add(string name, float carbs, float fats, float proteins);
