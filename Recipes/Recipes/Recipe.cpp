@@ -64,6 +64,16 @@ vector<Ingredient*> Recipe::GetIngredients()
 	return ingredients;
 }
 
+float Recipe::GetWeight()
+{
+	float weight = 0.f;
+
+	for (auto elem : Ingredients)
+		weight += elem.second;
+
+	return weight;
+}
+
 void Recipe::AddIngredient(Ingredient* ingredient, float quantity)
 {
 	this->Ingredients[ingredient] = quantity;

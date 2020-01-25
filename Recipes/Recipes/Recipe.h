@@ -29,6 +29,7 @@ public:
 	const float GetProteins();
 
 	vector<Ingredient*> GetIngredients();
+	float GetWeight();
 	void AddIngredient(Ingredient* ingredient, float quantity);
 	const bool ContainsIngredient(string name);
 

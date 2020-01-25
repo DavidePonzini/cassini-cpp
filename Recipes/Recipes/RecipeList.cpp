@@ -197,7 +197,7 @@ Recipe* RecipeList::FindRecipeWithMostCalories()
 			continue;
 		}
 
-		if (recipe->GetCalories() > result->GetCalories())
+		if (recipe->GetCalories() / recipe->GetWeight() > result->GetCalories() / result->GetWeight())
 			result = recipe;
 	}
 
@@ -215,7 +215,7 @@ Recipe* RecipeList::FindRecipeWithLeastCalories()
 			continue;
 		}
 
-		if (recipe->GetCalories() < result->GetCalories())
+		if (recipe->GetCalories()/recipe->GetWeight() < result->GetCalories()/result->GetWeight())
 			result = recipe;
 	}
 
@@ -246,9 +246,7 @@ float RecipeList::GetAverageCalories()
 	float total = 0.f;
 
 	for (auto recipe : Recipes)
-	{
-		total += recipe->GetCalories();
-	}
+		total += recipe->GetCalories() / recipe->GetWeight() * 100;
 
 	return total / Recipes.size();
 }
