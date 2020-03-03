@@ -23,7 +23,7 @@ using namespace std;
 extern IngredientList Ingredients;
 
 
-namespace global
+namespace strings
 {
 	// There's no need to declare this variable "extern", since its value is constant
 	const string ACTIONS =
@@ -52,5 +52,22 @@ namespace global
 		"* 0. Esci\n"
 		"\n";
 
-}
+	const string FIRST_INGREDIENT_NAME = "Nome ingrediente (\"stop\" per terminare): ";
+	const string NEXT_INGREDIENT_NAME = "Nome prossimo ingrediente (\"stop\" per terminare): ";
 
+	const string ERR_READ_FILE = "Impossibile leggere il file\n";
+	const string ERR_WRITE_FILE = "Impossibile salvare il file\n";
+	const string ERR_NO_RECIPE = "La ricetta non esiste\n";
+	const string ERR_NO_INGREDIENT = "L'ingrediente non esiste\n";
+
+	const string WARN_NO_INGREDIENT = "L'ingrediente non esiste, riprova: ";
+	const string WARN_RECIPE_NAME_EXISTS = "La ricetta esiste gia`, scegli un altro nome: ";
+	const string WARN_AMOUNT_NEGATIVE = "La quantita` deve essere maggiore di 0, riprova: ";
+
+	const string SUCCESS_ADD_RECIPE = "Ricetta aggiunta\n";
+	const string SUCCESS_SAVE_RECIPE = "Ricetta salvata\n";
+	const string SUCCESS_DELETE_RECIPE = "Ricetta cancellata\n";
+
+	const string MissingArgumentMessage(char* argv_0);
+
+}

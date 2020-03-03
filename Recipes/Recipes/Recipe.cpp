@@ -94,7 +94,7 @@ void Recipe::Print()
 {
 	cout << "--- " << GetName() << " ---" << endl;
 	
-	cout << "Ingredients:" << endl;
+	cout << "Ingredienti:" << endl;
 	for (auto ingredient : Ingredients)
 		cout << "\t - " << ingredient.first->GetName() << ": " << ingredient.second << "g" << endl;
 

@@ -16,13 +16,13 @@ int main(int argc, char* argv[])
 {
 	if (argc < 2)
 	{
-		cerr << argv[0] << " <ingredients_file>" << endl;
+		cerr << strings::MissingArgumentMessage(argv[0]);
 		return 1;
 	}
 
 	if(!Ingredients.ReadFile(argv[1]))
 	{
-		cerr << "Error reading file" << endl;
+		cerr << strings::ERR_READ_FILE;
 		return 2;
 	}
 
@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
 	int choice = -1;
 	while (choice != 0)
 	{
-		cout << global::ACTIONS;
+		cout << strings::ACTIONS;
 
 		int tmp;
 		cin >> tmp;
@@ -49,7 +49,7 @@ int main(int argc, char* argv[])
 			
 			Recipe* recipe = recipes.FindRecipeByName(name);
 			if (!recipe)
-				cout << "La ricetta non esiste" << endl;
+				cout << strings::ERR_NO_RECIPE;
 			else
 				recipe->Print();
 			
@@ -89,9 +89,9 @@ int main(int argc, char* argv[])
 			getline(cin >> ws, name);
 			
 			if (recipes.ReadRecipeFromFile(name))
-				cout << "Ricetta aggiunta" << endl;
+				cout << strings::SUCCESS_ADD_RECIPE;
 			else
-				cout << "Impossibile leggere la ricetta" << endl;
+				cout << strings::ERR_READ_FILE;
 			
 			break;
 		}
@@ -106,9 +106,9 @@ int main(int argc, char* argv[])
 			getline(cin >> ws, filename);
 			
 			if (recipes.SaveRecipeToFile(name, filename))
-				cout << "Ricetta salvata" << endl;
+				cout << strings::ERR_WRITE_FILE;
 			else
-				cout << "Impossibile salvare ricetta" << endl;
+				cout << strings::SUCCESS_SAVE_RECIPE;
 			
 			break;
 		}
@@ -119,9 +119,9 @@ int main(int argc, char* argv[])
 			getline(cin >> ws, name);
 			
 			if (recipes.DeleteRecipe(name))
-				cout << "Ricetta cancellata" << endl;
+				cout << strings::SUCCESS_DELETE_RECIPE;
 			else
-				cout << "Ricetta non esistente" << endl;
+				cout << strings::ERR_NO_RECIPE;
 
 			break;
 		}
@@ -133,7 +133,7 @@ int main(int argc, char* argv[])
 
 			Ingredient* ingredient = Ingredients.Get(name);
 			if (!ingredient) {
-				cout << "L'ingrediente non esiste" << endl;
+				cout << strings::ERR_NO_INGREDIENT;
 				break;
 			}
 
