@@ -16,13 +16,13 @@ int main(int argc, char* argv[])
 {
 	if (argc < 2)
 	{
-		cerr << strings::MissingArgumentMessage(argv[0]);
+		cerr << strings::error::MissingArgumentMessage(argv[0]);
 		return 1;
 	}
 
 	if(!Ingredients.ReadFile(argv[1]))
 	{
-		cerr << strings::ERR_READ_FILE;
+		cerr << strings::error::READ_FILE;
 		return 2;
 	}
 
@@ -44,12 +44,12 @@ int main(int argc, char* argv[])
 		case 2:
 		{
 			string name;
-			cout << "Nome ricetta: ";
+			cout << strings::input::RECIPE_NAME;
 			getline(cin >> ws, name);
 			
 			Recipe* recipe = recipes.FindRecipeByName(name);
 			if (!recipe)
-				cout << strings::ERR_NO_RECIPE;
+				cout << strings::error::NO_RECIPE;
 			else
 				recipe->Print();
 			
@@ -58,7 +58,7 @@ int main(int argc, char* argv[])
 		case 3:
 		{
 			string name;
-			cout << "Nome ingrediente: ";
+			cout << strings::input::INGREDIENT_NAME;
 			getline(cin >> ws, name);
 
 			for (auto recipe : recipes.FindRecipesByIngredient(name))
@@ -69,9 +69,9 @@ int main(int argc, char* argv[])
 		case 4:
 		{
 			float cal_min, cal_max;
-			cout << "Minimo calorie: ";
+			cout << strings::input::CALS_MIN;
 			cin >> cal_min;
-			cout << "Massimo calorie: ";
+			cout << strings::input::CALS_MAX;
 			cin >> cal_max;
 			
 			for (auto recipe : recipes.FindRecipesByCalories(cal_min, cal_max))
@@ -85,55 +85,55 @@ int main(int argc, char* argv[])
 		case 6:
 		{
 			string name;
-			cout << "Nome file: ";
+			cout << strings::input::FILE_NAME;
 			getline(cin >> ws, name);
 			
 			if (recipes.ReadRecipeFromFile(name))
-				cout << strings::SUCCESS_ADD_RECIPE;
+				cout << strings::success::ADD_RECIPE;
 			else
-				cout << strings::ERR_READ_FILE;
+				cout << strings::error::READ_FILE;
 			
 			break;
 		}
 		case 7:
 		{
 			string name;
-			cout << "Nome ricetta: ";
+			cout << strings::input::RECIPE_NAME;
 			getline(cin >> ws, name);
 
 			string filename;
-			cout << "Nome file: ";
+			cout << strings::input::FILE_NAME;
 			getline(cin >> ws, filename);
 			
 			if (recipes.SaveRecipeToFile(name, filename))
-				cout << strings::ERR_WRITE_FILE;
+				cout << strings::error::WRITE_FILE;
 			else
-				cout << strings::SUCCESS_SAVE_RECIPE;
+				cout << strings::success::SAVE_RECIPE;
 			
 			break;
 		}
 		case 8:
 		{
 			string name;
-			cout << "Nome ricetta: ";
+			cout << strings::input::RECIPE_NAME;
 			getline(cin >> ws, name);
 			
 			if (recipes.DeleteRecipe(name))
-				cout << strings::SUCCESS_DELETE_RECIPE;
+				cout << strings::success::DELETE_RECIPE;
 			else
-				cout << strings::ERR_NO_RECIPE;
+				cout << strings::error::NO_RECIPE;
 
 			break;
 		}
 		case 9:
 		{
 			string name;
-			cout << "Nome ingrediente: ";
+			cout << strings::input::INGREDIENT_NAME;
 			getline(cin >> ws, name);
 
 			Ingredient* ingredient = Ingredients.Get(name);
 			if (!ingredient) {
-				cout << strings::ERR_NO_INGREDIENT;
+				cout << strings::error::NO_INGREDIENT;
 				break;
 			}
 
@@ -144,7 +144,7 @@ int main(int argc, char* argv[])
 		case 10:
 		{
 			string name;
-			cout << "Nome ingrediente: ";
+			cout << strings::input::INGREDIENT_NAME;
 			getline(cin >> ws, name);
 			Ingredients.ChangeValues(name);
 			break;

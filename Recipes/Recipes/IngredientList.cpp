@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "IngredientList.h"
+#include "Global.h"
 
 
 using namespace std;
@@ -30,7 +31,7 @@ void IngredientList::ChangeValues(string name)
 
 	if (!ingredient)
 	{
-		cout << "L'ingrediente non esiste" << endl;
+		cout << strings::error::NO_INGREDIENT << endl;
 		return;
 	}
 

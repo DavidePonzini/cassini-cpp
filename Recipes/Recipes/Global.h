@@ -16,7 +16,7 @@ using namespace std;
 //     It basically tells the compiler that a variable called IngredientList exists somewhere in the program,
 //     but is defined in another file (hence the term "extern").
 // The actual value of the variable needs to be declared only once in the program,
-//     by writing "Ingredients IngredientList;" in a .cpp file of your choice.
+//     by writing "Ingredients IngredientList;" in any .cpp file.
 // If another file needs to access this variable, we only need to import this .h file,
 //     and not the .cpp one defining its actual value.
 //     In this way, we can prevent circular dependencies, which could make our code uncompilable.
@@ -25,7 +25,8 @@ extern IngredientList Ingredients;
 
 namespace strings
 {
-	// There's no need to declare this variable "extern", since its value is constant
+	/* There's no need to declare these variables "extern", since their values are constant */
+
 	const string ACTIONS =
 		"\n"
 		"* Ricette\n"
@@ -52,22 +53,40 @@ namespace strings
 		"* 0. Esci\n"
 		"\n";
 
-	const string FIRST_INGREDIENT_NAME = "Nome ingrediente (\"stop\" per terminare): ";
-	const string NEXT_INGREDIENT_NAME = "Nome prossimo ingrediente (\"stop\" per terminare): ";
+	namespace input
+	{
+		const string FIRST_INGREDIENT_NAME = "Nome ingrediente (\"stop\" per terminare): ";
+		const string NEXT_INGREDIENT_NAME = "Nome prossimo ingrediente (\"stop\" per terminare): ";
+		const string RECIPE_NAME = "Nome ricetta: ";
+		const string INGREDIENT_NAME = "Nome ingrediente: ";
+		const string FILE_NAME = "Nome file: ";
+		const string CALS_MIN = "Minimo calorie: ";
+		const string CALS_MAX = "Massimo calorie: ";
+		const string QUANTITY = "Quantita`: ";
+	}
+	
+	namespace error
+	{
+		const string READ_FILE = "Impossibile leggere il file\n";
+		const string WRITE_FILE = "Impossibile salvare il file\n";
+		const string NO_RECIPE = "La ricetta non esiste\n";
+		const string NO_INGREDIENT = "L'ingrediente non esiste\n";
 
-	const string ERR_READ_FILE = "Impossibile leggere il file\n";
-	const string ERR_WRITE_FILE = "Impossibile salvare il file\n";
-	const string ERR_NO_RECIPE = "La ricetta non esiste\n";
-	const string ERR_NO_INGREDIENT = "L'ingrediente non esiste\n";
-
-	const string WARN_NO_INGREDIENT = "L'ingrediente non esiste, riprova: ";
-	const string WARN_RECIPE_NAME_EXISTS = "La ricetta esiste gia`, scegli un altro nome: ";
-	const string WARN_AMOUNT_NEGATIVE = "La quantita` deve essere maggiore di 0, riprova: ";
-
-	const string SUCCESS_ADD_RECIPE = "Ricetta aggiunta\n";
-	const string SUCCESS_SAVE_RECIPE = "Ricetta salvata\n";
-	const string SUCCESS_DELETE_RECIPE = "Ricetta cancellata\n";
-
-	const string MissingArgumentMessage(char* argv_0);
+		const string MissingArgumentMessage(char* argv_0);
+	}
+	
+	namespace retry
+	{
+		const string NO_INGREDIENT = "L'ingrediente non esiste, riprova: ";
+		const string RECIPE_NAME_EXISTS = "La ricetta esiste gia`, scegli un altro nome: ";
+		const string AMOUNT_NEGATIVE = "La quantita` deve essere maggiore di 0, riprova: ";
+	}
+	
+	namespace success
+	{
+		const string ADD_RECIPE = "Ricetta aggiunta\n";
+		const string SAVE_RECIPE = "Ricetta salvata\n";
+		const string DELETE_RECIPE = "Ricetta cancellata\n";
+	}
 
 }

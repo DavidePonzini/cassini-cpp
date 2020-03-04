@@ -54,12 +54,12 @@ void RecipeList::ReadRecipeFromInput()
 	string recipeName, ingredientName;
 	float ingredientQuantity;
 	
-	cout << "Nome ricetta: ";
+	cout << strings::input::RECIPE_NAME;
 	getline(cin >> ws, recipeName);
 
 	while (FindRecipeByName(recipeName))
 	{
-		cout << strings::WARN_RECIPE_NAME_EXISTS;
+		cout << strings::retry::RECIPE_NAME_EXISTS;
 		getline(cin >> ws, recipeName);
 	}
 
@@ -67,7 +67,7 @@ void RecipeList::ReadRecipeFromInput()
 	Recipes.push_back(recipe);
 
 	
-	cout << strings::FIRST_INGREDIENT_NAME;
+	cout << strings::input::FIRST_INGREDIENT_NAME;
 	getline(cin >> ws, ingredientName);
 
 	while (ingredientName != "stop")
@@ -76,24 +76,24 @@ void RecipeList::ReadRecipeFromInput()
 
 		while (!ingredient)
 		{
-			cout << strings::WARN_NO_INGREDIENT;
+			cout << strings::retry::NO_INGREDIENT;
 			getline(cin >> ws, ingredientName);
 		
 			continue;
 		}
 
-		cout << "Quantita`: ";
+		cout << strings::input::QUANTITY;
 		cin >> ingredientQuantity;
 
 		while (ingredientQuantity <= 0)
 		{
-			cout << strings::WARN_AMOUNT_NEGATIVE;
+			cout << strings::retry::AMOUNT_NEGATIVE;
 			cin >> ingredientQuantity;
 		}
 
 		recipe->AddIngredient(ingredient, ingredientQuantity);
 
-		cout << strings::NEXT_INGREDIENT_NAME;
+		cout << strings::input::NEXT_INGREDIENT_NAME;
 		getline(cin >> ws, ingredientName);
 	}
 }

@@ -11,9 +11,9 @@
 IngredientList Ingredients;
 
 
-const string strings::MissingArgumentMessage(char* argv_0)
+const string strings::error::MissingArgumentMessage(char* argv_0)
 {
-	string programName(argv_0);
+	string programName(argv_0); // convert char* to string (using string constructor)
 
 	return "Usage:\n\t" + programName + " <ingredients_file>\n";
 }
