@@ -1,0 +1,9 @@
+Torta Sacher
+Uova,90
+Burro,65
+Cioccolato fondente,260
+Farina,65
+Sale,1
+Vaniglia,3
+Marmellata di albicocche,150
+Panna,125

@@ -9,114 +9,60 @@ using namespace std;
 
 Recipe::Recipe(string name)
 {
-	this->Name = name;
+	// TODO
 }
 
 const string Recipe::GetName()
 {
-	return this->Name;
+	// TODO
 }
 
 const float Recipe::GetCalories()
 {
-	float calories = 0.f;
-
-	for (auto ingredient : Ingredients)
-		calories += ingredient.first->GetCalories() * ingredient.second / 100;
-
-	return calories;
+	// TODO
 }
 
 const float Recipe::GetCarbs()
 {
-	float carbs = 0;
-	for (auto ingredient : Ingredients)
-		carbs += ingredient.first->GetCarbs();
-
-	return carbs;
+	// TODO
 }
 
 const float Recipe::GetFats()
 {
-	float fats = 0;
-	for (auto ingredient : Ingredients)
-		fats += ingredient.first->GetFats();
-
-	return fats;
+	// TODO
 }
 
 const float Recipe::GetProteins()
 {
-	float proteins = 0;
-	for (auto ingredient : Ingredients)
-		proteins+= ingredient.first->GetProteins();
-
-	return proteins;
+	// TODO
 }
 
 vector<Ingredient*> Recipe::GetIngredients()
 {
-	vector<Ingredient*> ingredients;
-
-	for (auto elem : Ingredients)
-		ingredients.push_back(elem.first);
-
-	return ingredients;
+	// TODO
 }
 
 float Recipe::GetWeight()
 {
-	float weight = 0.f;
-
-	for (auto elem : Ingredients)
-		weight += elem.second;
-
-	return weight;
+	// TODO
 }
 
 void Recipe::AddIngredient(Ingredient* ingredient, float quantity)
 {
-	this->Ingredients[ingredient] = quantity;
+	// TODO
 }
 
 const bool Recipe::ContainsIngredient(string name)
 {
-	for (auto ingredient : Ingredients)
-	{
-		if (ingredient.first->GetName() == name)
-			return true;
-	}
-
-	return false;
+	// TODO
 }
 
 void Recipe::Print()
 {
-	cout << "--- " << GetName() << " ---" << endl;
-	
-	cout << "Ingredienti:" << endl;
-	for (auto ingredient : Ingredients)
-		cout << "\t - " << ingredient.first->GetName() << ": " << ingredient.second << "g" << endl;
-
-	cout << "Calorie:     " << GetCalories() << " cals" << endl;
-	cout << "Carboidrati: " << GetCarbs() << "g" << endl;
-	cout << "Grassi:      " << GetFats() << "g" << endl;
-	cout << "Proteine:    " << GetProteins() << "g" << endl;
+	// TODO
 }
 
 bool Recipe::WriteToFile(string filename)
 {
-	ofstream file(filename);
-	if (!file)
-		return false;
-
-	file << GetName() << endl;
-	
-	for (auto ingredient : Ingredients)
-		file << ingredient.first->GetName() << ',' << ingredient.second << endl;
-
-	file.close();
-
-	return true;
-
+	// TODO
 }
