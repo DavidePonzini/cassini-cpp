@@ -20,7 +20,6 @@ const string Recipe::GetName()
 const float Recipe::GetCalories()
 {
 	float calories = 0.f;
-
 	for (auto ingredient : Ingredients)
 		calories += ingredient.first->GetCalories() * ingredient.second / 100;
 
@@ -31,7 +30,7 @@ const float Recipe::GetCarbs()
 {
 	float carbs = 0;
 	for (auto ingredient : Ingredients)
-		carbs += ingredient.first->GetCarbs();
+		carbs += ingredient.first->GetCarbs() * ingredient.second / 100;
 
 	return carbs;
 }
@@ -40,7 +39,7 @@ const float Recipe::GetFats()
 {
 	float fats = 0;
 	for (auto ingredient : Ingredients)
-		fats += ingredient.first->GetFats();
+		fats += ingredient.first->GetFats() * ingredient.second / 100;
 
 	return fats;
 }
@@ -49,7 +48,7 @@ const float Recipe::GetProteins()
 {
 	float proteins = 0;
 	for (auto ingredient : Ingredients)
-		proteins+= ingredient.first->GetProteins();
+		proteins+= ingredient.first->GetProteins() * ingredient.second / 100;
 
 	return proteins;
 }
@@ -98,6 +97,7 @@ void Recipe::Print()
 	for (auto ingredient : Ingredients)
 		cout << "\t - " << ingredient.first->GetName() << ": " << ingredient.second << "g" << endl;
 
+	cout << "Peso:        " << GetWeight() << "g" << endl;
 	cout << "Calorie:     " << GetCalories() << " cals" << endl;
 	cout << "Carboidrati: " << GetCarbs() << "g" << endl;
 	cout << "Grassi:      " << GetFats() << "g" << endl;
