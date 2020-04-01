@@ -16,6 +16,7 @@ void IngredientList::Add(string name, float carbs, float fats, float proteins)
 Ingredient* IngredientList::Get(string name)
 {
 	// TODO
+	return nullptr;
 }
 
 void IngredientList::ChangeValues(string name)
@@ -26,4 +27,5 @@ void IngredientList::ChangeValues(string name)
 bool IngredientList::ReadFile(string filename)
 {
 	// TODO
+	return false;
 }
