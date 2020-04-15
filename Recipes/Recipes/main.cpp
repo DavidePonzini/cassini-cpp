@@ -14,5 +14,7 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
+	cerr << strings::error::MissingArgumentMessage(argv[0]);
+
 	// TODO
 }
